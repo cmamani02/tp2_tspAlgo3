@@ -5,8 +5,7 @@ using namespace std;
 #define forsn(i,s,n) for(int i=int(s);i<int(n);i++)
 #define forn(i,n) forsn(i,0,n)
 
-const int MAXN = 10000;
-const int INF = 1000000000;
+const int INFTY = INT_MAX;
 
 // implementacion vista en clase
 
@@ -19,8 +18,9 @@ struct Edge
     }
 };
 
+int n, m;
+vector<vector<int>> graph;
 vector<Edge> edges;
-
 vector<int> altura, padre;
 
 // OJO: inicializar los vectores con longitud n
@@ -78,34 +78,58 @@ void agm_Kruskal(vector<Edge>& edges, int n){
 vector<int> recorrido_dfs;
 vector<bool> visited;
 
-void dfs(int v){
+void dfs(vector<vector<int>>& g, int v){
     recorrido_dfs.push_back(v);
     visited[v] = true;
     for(int y: g[v]){
         if(!visited[y]){
-            dfs(y);
+            dfs(g, y);
             recorrido_dfs.push_back(v);      
         }
     }
 }
 
-vector<int> crearCiclo(vector<int>&rec_dfs){
+vector<int> crearCiclo(vector<int>& rec_dfs, int n){
     vector<int> H;
-    vector<bool> agregados(rec_dfs.size(),false);
+    vector<bool> agregados(n, false);
     for (int i = 0; i < rec_dfs.size(); i++)
     {
-        if (!agregados[i]){
-            agregados[i] = true;
-            H.push_back(i);
+        if (!agregados[rec_dfs[i]]){
+            agregados[rec_dfs[i]] = true;
+            H.push_back(rec_dfs[i]);
         }
     }
+    int size = rec_dfs.size();
+    if(rec_dfs.size() > 0) H.push_back(rec_dfs[size-1]);
     return H;
 }
 
 vector<int> heur_AGM(vector<vector<int>> &graph){
     agm_Kruskal(edges,n);
-    dfs(1);
-    return crearCiclo(recorrido_dfs);
+    
+    visited = vector<bool>(n, false); //inicializacion
+    dfs(agm, 0);
+    return crearCiclo(recorrido_dfs, n);
+}
+
+// funciones para imprimir
+void printD(vector<int>& v){
+    cout << "[";
+    for(int i=0; i< v.size() -1;i++){
+        cout << v[i] << ",";
+    }
+    if(v.size() > 0){cout << v[v.size()-1];}
+    cout <<"]"<< endl;
+}
+
+void printT(vector<vector<int>>& v){
+    cout << "{";
+    for(int i=0; i< v.size() -1;i++){
+    	printD(v[i]);
+        cout << ",";
+    }
+    if(v.size() > 0){printD(v[v.size()-1]);}
+    cout <<"}"<< endl;
 }
 
 int main() {
@@ -113,18 +137,43 @@ int main() {
     cin.tie(nullptr);
 
     cin >> n >> m;
+    
+    graph.assign(n, vector<int>(n, INFTY)); //matriz de adyacencia
+    
+    int i, j, c;
+    // la entrada son nodos de 1 .. n, se representan como 0 .. n-1
+    forn(k, m){
+        cin >> i >> j >> c;
+        i--;
+        j--;
+        graph[i][j] = c;
+        graph[j][i] = c;
+        edges.push_back({i,j,c});
+    }
 
-    // inicializar y probar.
-    // visitado.resize(n, false);
-    // int a,b;
+    vector<int> test = heur_AGM(graph);
+    cout << "AGM: " << endl;
+    printT(agm);
+    cout << "Recorrido dfs desde vertice 0: " << endl;
+    printD(recorrido_dfs);
+    cout << "crear ciclo en base a recorrido dfs: " << endl;
+    printD(test);
+    //cout<<agm.size()<< " " << agm[1].size() << "\n";
+    
+    // TEST crear ciclo:
+    // vector<int> v1 = {1,1};
+    // vector<int> test1 = crearCiclo(v1, 2);
+    // cout << "T1: " << endl;
+    // printD(test1);
 
-    // forn(i,m){
-    //     cin >> a >> b;
-    //     a--;
-    //     b--;
-    //     g[a].push_back(b);
-    //     g[b].push_back(a);
-    // }
+    // vector<int> v2 = {1,2,1,1};
+    // vector<int> test2 = crearCiclo(v2, 3);
+    // cout << "T2: " << endl;
+    // printD(test2);
 
+    // vector<int> v3 = {1,2,1,0,2,1};
+    // vector<int> test3 = crearCiclo(v3, 3);
+    // cout << "T3: " << endl;
+    // printD(test3);
 	return 0;
 }
