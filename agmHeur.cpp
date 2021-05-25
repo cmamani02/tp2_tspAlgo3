@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-
+#include <iostream>
 using namespace std; 
 
 #define forsn(i,s,n) for(int i=int(s);i<int(n);i++)
@@ -110,6 +110,55 @@ vector<int> heur_AGM(vector<vector<int>> &graph){
     visited = vector<bool>(n, false); //inicializacion
     dfs(agm, 0);
     return crearCiclo(recorrido_dfs, n);
+}
+
+// asume matriz de adyacencia
+vector<int> localSearch2opt(vector<vector<int>> &graph){
+    vector<int> ciclo = heur_AGM(graph);
+    int mejorCosto = 0; // costoCiclo(H);
+    vector<int> cicloCandidato = ciclo;
+    //mientras "haya mejora en ciclo"
+    //v, ..u,v
+    for(int k = 0; k<5; k++){// reveer esto
+        //s solucion actual
+        // recorre vecinos de s
+        //c
+        //N(c) = {(c1), (c2), (c3) }
+        // si hay mejora:
+        //c = c2
+        forn(i, n){
+            // (0,1) (2,3)..(1,2) (3,4)...(2,3) (4,5)
+            // (j, j+1) ...
+            // i=0 => j= i+2;
+            //(i,i+1)-> (i+1,i+2)
+            for(int j = i+1; j < n-1 && j-i > 1; j++){
+                int nuevoCosto = mejorCosto;
+                // si son consecutivos no hace falta
+                int c_ui = graph[ciclo[i]][ciclo[i+1]]; // (i,i+1)
+                int c_uj = graph[ciclo[j]][ciclo[j+1]]; // (j,j+1)
+                //1,2,3,4,5,1  => 1,2, 5,1  => 1,4,5,1
+                // resto 2 aristas, sumo 2 aristas
+                nuevoCosto = mejorCosto - c_ui - c_uj + graph[ciclo[i]][ciclo[j]] + graph[ciclo[i+1]][ciclo[j+1]];      
+                if(nuevoCosto < mejorCosto){
+                    mejorCosto = nuevoCosto;
+                    //ciclo = nuevo ciclo;
+                    cicloCandidato = ciclo; //copia
+                    cicloCandidato[i+1] = ciclo[j];
+                    cicloCandidato[j] = ciclo[i+1];
+                    int l1 = i+2;
+                    //i i+1 [i+2  ... ] j, j+1
+                    int l2 = j-1;
+                    while(l1 < j){
+                        cicloCandidato[l1] = ciclo[l2];
+                        l2--;
+                        l1++;
+                    }
+                }
+            } 
+        }
+        //ciclo = cicloCandidato;        
+    }
+    return cicloCandidato;
 }
 
 // funciones para imprimir
