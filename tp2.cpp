@@ -57,6 +57,8 @@ int main() {
     forn(k, m){
         // vector<int> v(n+1, INFTY);
         cin >> i >> j >> c;
+        i--;
+        j--;
         graph[i][j] = c;
         graph[j][i] = c;
         

@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <iostream>
+#include <utility>
 using namespace std; 
 
 #define forsn(i,s,n) for(int i=int(s);i<int(n);i++)
@@ -160,6 +161,86 @@ vector<int> localSearch2opt(vector<vector<int>> &graph){
     }
     return cicloCandidato;
 }
+
+vector<pair<Edge, Edge>> obtenerSubvecindad( vector<int> ciclo,int porcentaje,vector<vector<int>> &graph){
+    vector<pair<Edge, Edge>> vecindad;
+    forn(i,n){
+        for(int j = i+1; j < n-1 && j-i > 1; j++){
+            Edge ar1 = {ciclo[i],ciclo[i+1],0};
+            Edge ar2 = {ciclo[j],ciclo[j+1],0};
+            vecindad.push_back(make_pair(ar1,ar2));
+        }
+    }
+    // falta retornar porcentaje de vecindad random
+
+}
+
+// antes chequear que vecinos no sea vacio
+pair<Edge,Edge> obtenerMejor(int costoCiclo, vector<pair<Edge, Edge>> vecinos, vector<pair<Edge, Edge>> mem, bool aspiracion){
+    
+    pair<Edge,Edge> sol = vecinos[0];
+    //(a,b) (c,d)
+    int i1 = get<0>(sol).u;
+    int i2 = get<0>(sol).v;
+    int j1 = get<1>(sol).u;
+    int j2 = get<1>(sol).v;
+    //nuevoCosto = mejorCosto - c_ui - c_uj + graph[ciclo[i]][ciclo[j]] + graph[ciclo[i+1]][ciclo[j+1]];
+    int costoMinimo = costoCiclo - graph[i1][i2]- graph[j1][j2] + graph[i1][j1] + graph[i2][j2]; 
+    for (auto edges : vecinos){
+        i1 = get<0>(edges).u;
+        i2 = get<0>(edges).v;
+        j1 = get<1>(edges).u;
+        j2 = get<1>(edges).v;
+        int costo = costoCiclo - graph[i1][i2]- graph[j1][j2] + graph[i1][j1] + graph[i2][j2];
+
+        bool esTabu = false; // pertenece(edeges, memo); chequea si esTabu buscar con for
+
+        // contemplar funcion de aspiracion
+        if(!esTabu && costo < costoMinimo){
+            costoMinimo = costo;
+            sol = edges;
+        }
+    }
+    return sol;
+}
+
+vector<int> tabuSearch(int iters, int t, int porcentaje,vector<vector<int>> &graph){
+     vector<int> ciclo = heur_AGM(graph);
+    vector<int> mejor = ciclo;
+    vector<pair<Edge, Edge>> memo(t); //[<(32,3), (7,26)>]  
+    // ¿como desalojar cuando se completo la listaTabu?
+    for(int i = 0; i<iters){
+        vector<pair<Edge, Edge>> vecinos = obtenerSubvecindad(ciclo, porcentaje);
+        //ciclo = obtenerMejor(..);
+        pair<Edge, Edge> mejoresAristas = obtenerMejor(vecinos, memo, aspiracion); //for....vecinos...
+        ciclo = reconstruirCiclo(ciclo, pair<Edge, Edge> mejoresAristas);
+
+        memo.recordar(mejoresAristas); // ?? se van a pisar
+        if(costo(ciclo) < costo(mejor)){
+            mejor = ciclo;
+        }
+    }
+    return vector<int>(1,1);
+}
+
+/*
+iteraciones = 100; //serian los saltos
+C --> C1 
+Subvecindario(C): C1 es el mejor con aristas <(32,3), (7,26), p >
+mientras....
+para i j:
+    vecindario.push_back({i,j})
+i = ramdom(longi(vecindaio))
+j = 
+(i,....,j)
+
+subvecindario = random(vecindario, 20%)
+random_shuffle(vecindario.begin(), vecidario.end());
+// T = 10;
+memo = [<(32,3), (7,26)>, ......., (e1,e2)]
+
+}
+*/
 
 // funciones para imprimir
 void printD(vector<int>& v){
