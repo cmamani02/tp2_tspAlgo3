@@ -1,28 +1,6 @@
-#include <bits/stdc++.h>
-#include <iostream>
-#include <utility>
-using namespace std; 
 
-#define forsn(i,s,n) for(int i=int(s);i<int(n);i++)
-#define forn(i,n) forsn(i,0,n)
-
-const int INFTY = INT_MAX;
-
-// implementacion vista en clase
-
-int n, m;
-struct Edge
-{
-    int u, v, weight;
-    bool operator<(Edge const& other){
-        return weight < other.weight;
-    }
-};
-
-int n, m;
-vector<vector<int>> graph;
-vector<Edge> edges;
-vector<int> altura, padre;
+#include "agmHeur.h"
+#include "tabuSearch.cpp"
 
 // OJO: inicializar los vectores con longitud n
 void init(int n){
@@ -107,31 +85,21 @@ vector<int> crearCiclo(vector<int>& rec_dfs, int n){
 
 vector<int> heur_AGM(vector<vector<int>> &graph){
     agm_Kruskal(edges,n);
-    
     visited = vector<bool>(n, false); //inicializacion
     dfs(agm, 0);
     return crearCiclo(recorrido_dfs, n);
 }
 
 // asume matriz de adyacencia
+/*
 vector<int> localSearch2opt(vector<vector<int>> &graph){
     vector<int> ciclo = heur_AGM(graph);
     int mejorCosto = 0; // costoCiclo(H);
     vector<int> cicloCandidato = ciclo;
     //mientras "haya mejora en ciclo"
-    //v, ..u,v
+    //ciclos => c1,c2,c3,...ck
     for(int k = 0; k<5; k++){// reveer esto
-        //s solucion actual
-        // recorre vecinos de s
-        //c
-        //N(c) = {(c1), (c2), (c3) }
-        // si hay mejora:
-        //c = c2
         forn(i, n){
-            // (0,1) (2,3)..(1,2) (3,4)...(2,3) (4,5)
-            // (j, j+1) ...
-            // i=0 => j= i+2;
-            //(i,i+1)-> (i+1,i+2)
             for(int j = i+1; j < n-1 && j-i > 1; j++){
                 int nuevoCosto = mejorCosto;
                 // si son consecutivos no hace falta
@@ -161,67 +129,7 @@ vector<int> localSearch2opt(vector<vector<int>> &graph){
     }
     return cicloCandidato;
 }
-
-vector<pair<Edge, Edge>> obtenerSubvecindad( vector<int> ciclo,int porcentaje,vector<vector<int>> &graph){
-    vector<pair<Edge, Edge>> vecindad;
-    forn(i,n){
-        for(int j = i+1; j < n-1 && j-i > 1; j++){
-            Edge ar1 = {ciclo[i],ciclo[i+1],0};
-            Edge ar2 = {ciclo[j],ciclo[j+1],0};
-            vecindad.push_back(make_pair(ar1,ar2));
-        }
-    }
-    // falta retornar porcentaje de vecindad random
-
-}
-
-// antes chequear que vecinos no sea vacio
-pair<Edge,Edge> obtenerMejor(int costoCiclo, vector<pair<Edge, Edge>> vecinos, vector<pair<Edge, Edge>> mem, bool aspiracion){
-    
-    pair<Edge,Edge> sol = vecinos[0];
-    //(a,b) (c,d)
-    int i1 = get<0>(sol).u;
-    int i2 = get<0>(sol).v;
-    int j1 = get<1>(sol).u;
-    int j2 = get<1>(sol).v;
-    //nuevoCosto = mejorCosto - c_ui - c_uj + graph[ciclo[i]][ciclo[j]] + graph[ciclo[i+1]][ciclo[j+1]];
-    int costoMinimo = costoCiclo - graph[i1][i2]- graph[j1][j2] + graph[i1][j1] + graph[i2][j2]; 
-    for (auto edges : vecinos){
-        i1 = get<0>(edges).u;
-        i2 = get<0>(edges).v;
-        j1 = get<1>(edges).u;
-        j2 = get<1>(edges).v;
-        int costo = costoCiclo - graph[i1][i2]- graph[j1][j2] + graph[i1][j1] + graph[i2][j2];
-
-        bool esTabu = false; // pertenece(edeges, memo); chequea si esTabu buscar con for
-
-        // contemplar funcion de aspiracion
-        if(!esTabu && costo < costoMinimo){
-            costoMinimo = costo;
-            sol = edges;
-        }
-    }
-    return sol;
-}
-
-vector<int> tabuSearch(int iters, int t, int porcentaje,vector<vector<int>> &graph){
-     vector<int> ciclo = heur_AGM(graph);
-    vector<int> mejor = ciclo;
-    vector<pair<Edge, Edge>> memo(t); //[<(32,3), (7,26)>]  
-    // ¿como desalojar cuando se completo la listaTabu?
-    for(int i = 0; i<iters){
-        vector<pair<Edge, Edge>> vecinos = obtenerSubvecindad(ciclo, porcentaje);
-        //ciclo = obtenerMejor(..);
-        pair<Edge, Edge> mejoresAristas = obtenerMejor(vecinos, memo, aspiracion); //for....vecinos...
-        ciclo = reconstruirCiclo(ciclo, pair<Edge, Edge> mejoresAristas);
-
-        memo.recordar(mejoresAristas); // ?? se van a pisar
-        if(costo(ciclo) < costo(mejor)){
-            mejor = ciclo;
-        }
-    }
-    return vector<int>(1,1);
-}
+*/
 
 /*
 iteraciones = 100; //serian los saltos
@@ -282,12 +190,17 @@ int main() {
     }
 
     vector<int> test = heur_AGM(graph);
-    cout << "AGM: " << endl;
-    printT(agm);
-    cout << "Recorrido dfs desde vertice 0: " << endl;
-    printD(recorrido_dfs);
-    cout << "crear ciclo en base a recorrido dfs: " << endl;
-    printD(test);
+    // cout << "AGM: " << endl;
+    // printT(agm);
+    // cout << "Recorrido dfs desde vertice 0: " << endl;
+    // printD(recorrido_dfs);
+    // cout << "crear ciclo en base a recorrido dfs: " << endl;
+    // printD(test);
+    
+    vector<int> ciclo_tabu = tabuSearch(10,20,30,graph);
+    printD(ciclo_tabu);
+
+
     //cout<<agm.size()<< " " << agm[1].size() << "\n";
     
     // TEST crear ciclo:
