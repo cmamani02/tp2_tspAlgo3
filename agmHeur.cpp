@@ -1,6 +1,5 @@
 
 #include "agmHeur.h"
-#include "tabuSearch.cpp"
 
 // OJO: inicializar los vectores con longitud n
 void init(int n){
@@ -170,53 +169,53 @@ void printT(vector<vector<int>>& v){
     cout <<"}"<< endl;
 }
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+// int main() {
+//     ios::sync_with_stdio(false);
+//     cin.tie(nullptr);
 
-    cin >> n >> m;
+//     cin >> n >> m;
     
-    graph.assign(n, vector<int>(n, INFTY)); //matriz de adyacencia
+//     graph.assign(n, vector<int>(n, INFTY)); //matriz de adyacencia
     
-    int i, j, c;
-    // la entrada son nodos de 1 .. n, se representan como 0 .. n-1
-    forn(k, m){
-        cin >> i >> j >> c;
-        i--;
-        j--;
-        graph[i][j] = c;
-        graph[j][i] = c;
-        edges.push_back({i,j,c});
-    }
+//     int i, j, c;
+//     // la entrada son nodos de 1 .. n, se representan como 0 .. n-1
+//     forn(k, m){
+//         cin >> i >> j >> c;
+//         i--;
+//         j--;
+//         graph[i][j] = c;
+//         graph[j][i] = c;
+//         edges.push_back({i,j,c});
+//     }
 
-    vector<int> test = heur_AGM(graph);
-    // cout << "AGM: " << endl;
-    // printT(agm);
-    // cout << "Recorrido dfs desde vertice 0: " << endl;
-    // printD(recorrido_dfs);
-    // cout << "crear ciclo en base a recorrido dfs: " << endl;
-    // printD(test);
+//     vector<int> test = heur_AGM(graph);
+//     // cout << "AGM: " << endl;
+//     // printT(agm);
+//     // cout << "Recorrido dfs desde vertice 0: " << endl;
+//     // printD(recorrido_dfs);
+//     // cout << "crear ciclo en base a recorrido dfs: " << endl;
+//     // printD(test);
     
-    vector<int> ciclo_tabu = tabuSearch(10,20,30,graph);
-    printD(ciclo_tabu);
+//     vector<int> ciclo_tabu = tabuSearch(10,20,30,graph);
+//     printD(ciclo_tabu);
 
 
-    //cout<<agm.size()<< " " << agm[1].size() << "\n";
+//     //cout<<agm.size()<< " " << agm[1].size() << "\n";
     
-    // TEST crear ciclo:
-    // vector<int> v1 = {1,1};
-    // vector<int> test1 = crearCiclo(v1, 2);
-    // cout << "T1: " << endl;
-    // printD(test1);
+//     // TEST crear ciclo:
+//     // vector<int> v1 = {1,1};
+//     // vector<int> test1 = crearCiclo(v1, 2);
+//     // cout << "T1: " << endl;
+//     // printD(test1);
 
-    // vector<int> v2 = {1,2,1,1};
-    // vector<int> test2 = crearCiclo(v2, 3);
-    // cout << "T2: " << endl;
-    // printD(test2);
+//     // vector<int> v2 = {1,2,1,1};
+//     // vector<int> test2 = crearCiclo(v2, 3);
+//     // cout << "T2: " << endl;
+//     // printD(test2);
 
-    // vector<int> v3 = {1,2,1,0,2,1};
-    // vector<int> test3 = crearCiclo(v3, 3);
-    // cout << "T3: " << endl;
-    // printD(test3);
-	return 0;
-}
+//     // vector<int> v3 = {1,2,1,0,2,1};
+//     // vector<int> test3 = crearCiclo(v3, 3);
+//     // cout << "T3: " << endl;
+//     // printD(test3);
+// 	return 0;
+// }

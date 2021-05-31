@@ -138,7 +138,6 @@ vector<int> tabuSearch(int iters, int t, int porcentaje, vector<vector<int>> &gr
         recordar(mejoresAristas, memo, indexMemo); // guarda el movimiento inverso
         indexMemo++;
         indexMemo %= t;
-        
         costoCiclo = costo(ciclo,graph); 
         if(costoCiclo < costoMejor){
             mejor = ciclo;

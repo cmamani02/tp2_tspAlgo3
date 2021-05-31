@@ -4,58 +4,29 @@
 ===================================================================================================
 */
 
-#include <climits>
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <chrono>
-#include <set>
-#include <map>
-using namespace std;
+#include "agmHeur.cpp" 
+#include "tabuSearch.cpp" 
+#include "vecMasCerHeur.cpp" 
 
+int main(int argc, char** argv) {
 
-const int INFTY = INT_MAX;
-int costoTotal = 0;
-#define forsn(i,s,n) for(int i=int(s);i<int(n);i++)
-#define forn(i,n) forsn(i,0,n)
+    // Leemos el parametro que indica el algoritmo a ejecutar.
+    map<string, string> algoritmos_implementados = {
+        {"AGMH", "Heuristica basada en AGM"}, {"VMC", "Heuristica del vecino mas cercano"}, {"HI", "Heuristica por Insercion"}, 
+        {"TS-AGM", "Tabu Seach usando AGMH"}, {"TS-VMC", "Tabu Seach usando VMC "},{"TS-HI","Tabu Seach usando HI"}
+    };
 
-int n, m; 
-vector<vector<int>> graph;
-vector<int> vecinoMasCercano(vector<vector<int>>& g){
-    vector<bool> visitados(n+1, false);
-    // nodo inicial
-    int v0 = 1;
-    int v = 1;
-    visitados[v] = true;
-    vector<int> H;
-    H.push_back(v);
-    int w;
-    for (int i = 2; i < n+1; i++)
+    // Verificar que el algoritmo pedido exista.
+    if (argc < 2 || algoritmos_implementados.find(argv[1]) == algoritmos_implementados.end())
     {
-        //{4,1,2,8,0}
-        w = -1;
-        int min = INFTY;
-        for (int j = 1; j < n+1; j++)
-        {
-            if(!visitados[j] && j != v){
-                if (min > g[v][j] ){w = j;}
-            }
-        }
-        visitados[w] = true;
-        costoTotal += g[v][w];
-        H.push_back(w);
-        v = w;
+        cerr << "Algoritmo no encontrado: " << argv[1] << endl;
+        cerr << "Los algoritmos existentes son: " << endl;
+        for (auto& alg_desc: algoritmos_implementados) cerr << "\t- " << alg_desc.first << ": " << alg_desc.second << endl;
+        return 0;
     }
-    costoTotal += g[w][v0];
-
-    return H;
-}
+    string algoritmo = argv[1];
 
 
-
-int main() {
 
     cin >> n >> m;
     graph.assign(n+1, vector<int>(n+1, INFTY));
@@ -72,21 +43,45 @@ int main() {
     }
 
     
+    vector<int> ciclo;
+    costoTotal = 1;
     auto start = chrono::steady_clock::now();
     //computamos....
-    vector<int> H = vecinoMasCercano(graph);
+    if (algoritmo == "AGMH")
+    {
+        ciclo = heur_AGM(graph);
+
+    }else if (algoritmo == "VCM")
+    {
+        ciclo = vecinoMasCercano(graph);
+
+    }else if (algoritmo == "HI")
+    {
+        
+
+    }else if (algoritmo == "TS-AGMH")
+    {
+
+    }else if (algoritmo == "TS-VCM")
+    {
+
+    }else if (algoritmo == "TS-HI")
+    {
+
+    }
     
     auto end = chrono::steady_clock::now();
     double total_time = chrono::duration<double, milli>(end - start).count();
     
     // Imprimimos el tiempo de ejecución por stderr.
-    // clog << total_time << endl;
-    cout << H.size() <<" "<< costoTotal <<endl;
-    for (int i = 0; i < H.size(); i++)
-    {
-        cout << H[i] <<" ";
-    }
-    cout << endl;
+    clog << total_time << endl;
+    cout << costoTotal << endl<<flush;
+    // cout << ciclo.size() <<" "<< costoTotal <<endl;
+    // for (int i = 0; i < ciclo.size(); i++)
+    // {
+    //     cout << ciclo[i] <<" ";
+    // }
+    // cout << endl;
     
 	return 0;
 
