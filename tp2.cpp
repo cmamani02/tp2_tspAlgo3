@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
 
 
     cin >> n >> m;
-    graph.assign(n+1, vector<int>(n+1, INFTY));
+    graph.assign(n, vector<int>(n, INFTY));
     int i, j, c;
     forn(k, m){
         // vector<int> v(n+1, INFTY);
@@ -38,8 +38,7 @@ int main(int argc, char** argv) {
         j--;
         graph[i][j] = c;
         graph[j][i] = c;
-        
-        //cout << cc << "\n";
+        edges.push_back({i,j,c});
     }
 
     
@@ -49,7 +48,8 @@ int main(int argc, char** argv) {
     //computamos....
     if (algoritmo == "AGMH")
     {
-        ciclo = heur_AGM(graph);
+        //ciclo = heur_AGM(graph);
+        ciclo = tabuSearch(10,20,30,graph);
 
     }else if (algoritmo == "VCM")
     {
@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
     //     cout << ciclo[i] <<" ";
     // }
     // cout << endl;
-    
+    printD(ciclo);
 	return 0;
 
 }

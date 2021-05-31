@@ -27,12 +27,15 @@ void recordar(pair<Edge, Edge> swap, vector<pair<Edge, Edge>> &memo, int index){
 // porcentaje es un valor en el rango [1 .. 100]
 vector<pair<Edge, Edge>> obtenerSubvecindad(vector<int>& ciclo, int porcentaje, vector<vector<int>> &graph){
     vector<pair<Edge, Edge>> vecindad;
-    forn(i,n){
-        for(int j = i+1; j < n-1 && j-i > 0; j++){
+    int s = ciclo.size();
+    forn(i,s){
+        for(int j = i+2; j < s-1; j++){
             Edge ar1 = {ciclo[i],ciclo[i+1],0};
             Edge ar2 = {ciclo[j],ciclo[j+1],0};
             vecindad.push_back(make_pair(ar1,ar2));
+            //cout<<"("<<ciclo[i]<<"-"<<ciclo[i+1]<< ")"<<"("<<ciclo[j]<<"-"<<ciclo[j+1]<< ")"<<endl;
         }
+        //cout<<"-\n";
     }
     // falta retornar porcentaje de vecindad random
     random_shuffle(vecindad.begin(), vecindad.end());
