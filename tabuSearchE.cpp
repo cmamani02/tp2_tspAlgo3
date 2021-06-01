@@ -45,7 +45,6 @@ vector<pair<Edge, Edge>> obtenerSubvecindad(vector<int>& ciclo, int porcentaje, 
         }
         //cout<<"-\n";
     }
-    // falta retornar porcentaje de vecindad random
     random_shuffle(vecindad.begin(), vecindad.end());
     int subvecindad = (vecindad.size()*porcentaje)/100;
     vecindad.resize(subvecindad);
@@ -63,7 +62,7 @@ pair<Edge,Edge> obtenerMejor(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, 
     b = get<0>(sol).v;
     c = get<1>(sol).u;
     d = get<1>(sol).v;
-    int costoMinimo = costoCiclo;// - graph[a][b]- graph[c][d] + graph[a][c] + graph[b][d]; 
+    int costoMinimo = costoCiclo;
     for (auto edges : vecinos){
         a = get<0>(edges).u;
         b = get<0>(edges).v;
@@ -94,7 +93,7 @@ vector<int> reconstruirCiclo(vector<int>& ciclo, pair<Edge,Edge> swap){
     int i = 0, j = 0;
     for(int k = 0; k<ciclo.size(); k++){
         if(ciclo[k] == a) i = k;
-        if(ciclo[k] == b){
+        if(ciclo[k] == c){
           j = k;
           break;  
         }
@@ -148,7 +147,6 @@ vector<int> tabuSearchE(int iters, int t, int porcentaje, vector<vector<int>> &g
         //verificar si obtuve solucion si los pares de aristas son invalidas
         ciclo = reconstruirCiclo(ciclo, mejoresAristas);
         
-        // CAMBIAR: se tiene que guardar la operacion inversa
         recordar(mejoresAristas, memo, indexMemo); // guarda el movimiento inverso
         indexMemo++;
         indexMemo %= t;
