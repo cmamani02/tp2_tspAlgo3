@@ -1,3 +1,4 @@
+
 #include <climits>
 #include <iostream>
 #include <vector>
@@ -27,6 +28,48 @@ int n, m;
 vector<vector<int>> graph;
 vector<Edge> edges;
 vector<int> altura, padre;
+
+
+// asume matriz de adyacencia
+/*
+vector<int> localSearch2opt(vector<vector<int>> &graph){
+    vector<int> ciclo = heur_AGM(graph);
+    int mejorCosto = 0; // costoCiclo(H);
+    vector<int> cicloCandidato = ciclo;
+    //mientras "haya mejora en ciclo"
+    //ciclos => c1,c2,c3,...ck
+    for(int k = 0; k<5; k++){// reveer esto
+        forn(i, n){
+            for(int j = i+1; j < n-1 && j-i > 1; j++){
+                int nuevoCosto = mejorCosto;
+                // si son consecutivos no hace falta
+                int c_ui = graph[ciclo[i]][ciclo[i+1]]; // (i,i+1)
+                int c_uj = graph[ciclo[j]][ciclo[j+1]]; // (j,j+1)
+                //1,2,3,4,5,1  => 1,2, 5,1  => 1,4,5,1
+                // resto 2 aristas, sumo 2 aristas
+                nuevoCosto = mejorCosto - c_ui - c_uj + graph[ciclo[i]][ciclo[j]] + graph[ciclo[i+1]][ciclo[j+1]];      
+                if(nuevoCosto < mejorCosto){
+                    mejorCosto = nuevoCosto;
+                    //ciclo = nuevo ciclo;
+                    cicloCandidato = ciclo; //copia
+                    cicloCandidato[i+1] = ciclo[j];
+                    cicloCandidato[j] = ciclo[i+1];
+                    int l1 = i+2;
+                    //i i+1 [i+2  ... ] j, j+1
+                    int l2 = j-1;
+                    while(l1 < j){
+                        cicloCandidato[l1] = ciclo[l2];
+                        l2--;
+                        l1++;
+                    }
+                }
+            } 
+        }
+        //ciclo = cicloCandidato;        
+    }
+    return cicloCandidato;
+}
+*/
 
 // OJO: inicializar los vectores con longitud n
 void init(int n){
@@ -116,8 +159,13 @@ int main() {
 
 }
 
-// {[1,2,3],
-// [1,4,5],
-// []}
-
-
+/*
+n m
+4 6 
+1 2 3
+1 3 5
+1 4 -1
+2 3 1
+2 4 10
+3 4 3
+*/

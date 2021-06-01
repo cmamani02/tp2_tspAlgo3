@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
 
     
     vector<int> ciclo;
-    costoTotal = 1;
+    // costoTotal = 1;
     auto start = chrono::steady_clock::now();
     //computamos....
     if (algoritmo == "AGMH")
@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
         //ciclo = heur_AGM(graph);
         ciclo = tabuSearch(10,20,30,graph);
 
-    }else if (algoritmo == "VCM")
+    }else if (algoritmo == "VMC")
     {
         ciclo = vecinoMasCercano(graph);
 
@@ -61,6 +61,7 @@ int main(int argc, char** argv) {
 
     }else if (algoritmo == "TS-AGMH")
     {
+
 
     }else if (algoritmo == "TS-VCM")
     {
@@ -76,7 +77,7 @@ int main(int argc, char** argv) {
     // Imprimimos el tiempo de ejecución por stderr.
     clog << total_time << endl;
     cout << costoTotal << endl<<flush;
-    // cout << ciclo.size() <<" "<< costoTotal <<endl;
+    cout << ciclo.size()<< endl;// <<" "<< costoTotal <<endl;
     // for (int i = 0; i < ciclo.size(); i++)
     // {
     //     cout << ciclo[i] <<" ";
