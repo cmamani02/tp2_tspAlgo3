@@ -4,8 +4,11 @@
 #include <utility>
 using namespace std; 
 
-#ifndef __TABUSEARCH_H__
-#define __TABUSEARCH_H__
+#ifndef __TABUSEARCHE_H__
+#define __TABUSEARCHE_H__
+
+#ifndef __TABUSEARCHC_H__
+#define __TABUSEARCHC_H__
 
 #ifndef __VECMASCERHEUR_H__
 #define __VECMASCERHEUR_H__
@@ -48,5 +51,6 @@ vector<int> heur_AGM(vector<vector<int>> &graph);
 void printD(vector<int>& v);
 void printT(vector<vector<int>>& v);
 
+#endif
 #endif
 #endif

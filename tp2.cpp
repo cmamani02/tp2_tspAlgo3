@@ -3,9 +3,9 @@
 | TRABAJO PRACTICO 2 -The travelling salesman problem-Algoritmos y Estructura de Datos III - FCEN |
 ===================================================================================================
 */
-
 #include "agmHeur.cpp" 
-#include "tabuSearch.cpp" 
+#include "tabuSearchE.cpp" 
+#include "tabuSearchC.cpp" 
 #include "vecMasCerHeur.cpp" 
 
 int main(int argc, char** argv) {
@@ -13,7 +13,9 @@ int main(int argc, char** argv) {
     // Leemos el parametro que indica el algoritmo a ejecutar.
     map<string, string> algoritmos_implementados = {
         {"AGMH", "Heuristica basada en AGM"}, {"VMC", "Heuristica del vecino mas cercano"}, {"HI", "Heuristica por Insercion"}, 
-        {"TS-AGM", "Tabu Seach usando AGMH"}, {"TS-VMC", "Tabu Seach usando VMC "},{"TS-HI","Tabu Seach usando HI"}
+        {"TSE-AGM", "Tabu Seach basada en estructuras, usando AGMH"}, {"TSE-VMC", "Tabu Seach basada en estructuras usando VMC "},{"TSE-HI","Tabu Seach basada en estructuras usando HI"},
+        {"TSC-AGM", "Tabu Seach basada en ciclos, usando AGMH"}, {"TSC-VMC", "Tabu Seach basada en ciclos, usando VMC "},{"TSC-HI","Tabu Seach basada en ciclos, usando HI"},
+
     };
 
     // Verificar que el algoritmo pedido exista.
@@ -25,8 +27,6 @@ int main(int argc, char** argv) {
         return 0;
     }
     string algoritmo = argv[1];
-
-
 
     cin >> n >> m;
     graph.assign(n, vector<int>(n, INFTY));
@@ -49,7 +49,6 @@ int main(int argc, char** argv) {
     if (algoritmo == "AGMH")
     {
         //ciclo = heur_AGM(graph);
-        ciclo = tabuSearch(10,20,30,graph);
 
     }else if (algoritmo == "VMC")
     {
@@ -57,16 +56,27 @@ int main(int argc, char** argv) {
 
     }else if (algoritmo == "HI")
     {
+
+    }else if (algoritmo == "TSE-AGMH")
+    {
+        string heuristica = "AGM";
+        ciclo = tabuSearchE(10,20,30,graph,heuristica);
         
+    }else if (algoritmo == "TSE-VCM")
+    {
+        string heuristica = "VCM";
 
-    }else if (algoritmo == "TS-AGMH")
+    }else if (algoritmo == "TSE-HI")
+    {
+        string heuristica = "HI";
+
+    }else if (algoritmo == "TSC-AGMH")
+    {
+        
+    }else if (algoritmo == "TSC-VCM")
     {
 
-
-    }else if (algoritmo == "TS-VCM")
-    {
-
-    }else if (algoritmo == "TS-HI")
+    }else if (algoritmo == "TSC-HI")
     {
 
     }
