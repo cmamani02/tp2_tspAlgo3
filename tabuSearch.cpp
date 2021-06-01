@@ -1,6 +1,14 @@
+/**
+ * @brief 
+ * Metaheuristica TabuSearch-Basada en estructuras (aristas)
+ * Guı́a una heurı́stica de búsqueda local para explorar el espacio
+ * de soluciones, con el principal objetivo de evitar quedar
+ * atascados en un óptimo local.
+ */
+
+
 
 #include "tabuSearch.h"
-// #include "agmHeur.cpp"
 
 
 // ciclo = v u .. w v
@@ -86,7 +94,7 @@ vector<int> reconstruirCiclo(vector<int>& ciclo, pair<Edge,Edge> swap){
     int i = 0, j = 0;
     for(int k = 0; k<ciclo.size(); k++){
         if(ciclo[k] == a) i = k;
-        if(ciclo[k] == c){
+        if(ciclo[k] == b){
           j = k;
           break;  
         }

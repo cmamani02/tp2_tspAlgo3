@@ -1,3 +1,9 @@
+/**
+ * @brief 
+ * Heuristica Constructiva del Vecino Mas Cercano (VMC)
+ * En cada paso elegimos como siguiente lugar a vistar el que, 
+ * entre los que todavı́a no visitados, se encuentre más cerca de donde nos encontramos.
+ */
 
 #include "vecMasCerHeur.h"
 int costoTotal = 0;

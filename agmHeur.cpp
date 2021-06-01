@@ -1,3 +1,12 @@
+/**
+ * @brief 
+ * Heuristica basa en el Algoritmo de Arbol Generador Minimo (AGM) 
+ * Lo primero que hace este algoritmo es buscar un AGM del grafo T . 
+ * Recorre los vértices según DFS. 
+ * Por último, arma un circuito hamiltoniano recorriendo los vértices en este orden y agregando
+ * la arista desde el último vertice al primero.
+ */
+
 
 #include "agmHeur.h"
 
