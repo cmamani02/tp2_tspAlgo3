@@ -86,7 +86,7 @@ vector<int> reconstruirCiclo(vector<int>& ciclo, pair<Edge,Edge> swap){
     int i = 0, j = 0;
     for(int k = 0; k<ciclo.size(); k++){
         if(ciclo[k] == a) i = k;
-        if(ciclo[k] == b){
+        if(ciclo[k] == c){
           j = k;
           break;  
         }
