@@ -59,9 +59,13 @@ pair<Edge,Edge> obtenerMejorC(int costoCiclo, vector<pair<Edge, Edge>>& vecinos,
 
 vector<int> tabuSearchC(int iters, int t, int porcentaje, vector<vector<int>> &graph, string heuristica){
     vector<int> ciclo;
-    if (heuristica == "AGM") ciclo = heur_AGM(graph);
-    if (heuristica == "VCM") ciclo = vecinoMasCercano(graph);
-    // if (heuristica == "HI") ciclo = heur_AGM(graph);
+    if (heuristica == "AGM"){
+        ciclo = heur_AGM(graph);
+    }else if (heuristica == "VCM"){ 
+        ciclo = vecinoMasCercano(graph);
+    }else{ 
+        ciclo = heur_AGM(graph);
+    }
     
     int costoCiclo = costo(ciclo,graph);
     vector<int> mejor = ciclo;

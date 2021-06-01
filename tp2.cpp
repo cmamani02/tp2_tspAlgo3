@@ -4,9 +4,9 @@
 ===================================================================================================
 */
 #include "agmHeur.cpp" 
+#include "vecMasCerHeur.cpp" 
 #include "tabuSearchE.cpp" 
 #include "tabuSearchC.cpp" 
-#include "vecMasCerHeur.cpp" 
 
 int main(int argc, char** argv) {
 

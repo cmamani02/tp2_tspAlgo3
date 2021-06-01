@@ -1,7 +1,3 @@
-#include "agmHeur.h"
-#include "vecMasCerHeur.h"
-#include <algorithm>
-
 #ifndef __AGMHEUR_H__
 #define __AGMHEUR_H__
 
@@ -12,6 +8,13 @@
 #ifndef __TABUSEARCHC_H__
 #define __TABUSEARCHC_H__
 
+#include "vecMasCerHeur.h"
+#include <bits/stdc++.h>
+#include <algorithm>
+#include "agmHeur.h"
+#include "tabuSearchC.h"
+
+using namespace std;
 
 vector<pair<Edge, Edge>> obtenerSubvecindad(vector<int>& ciclo,int porcentaje,vector<vector<int>> &graph);
 pair<Edge,Edge> obtenerMejor(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, vector<pair<Edge, Edge>>& mem, vector<vector<int>>& graph, bool aspiracion);
