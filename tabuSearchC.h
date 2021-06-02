@@ -17,11 +17,13 @@
 #include "vecMasCerHeur.h"
 #include "tabuSearchE.h"
 #include <algorithm>
-pair<Edge,Edge> obtenerMejorC(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, vector<pair<Edge, Edge>>& mem, vector<vector<int>>& graph, bool aspiracion);
+
+vector<int> obtenerMejorC(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, vector<vector<int>>& mem, vector<vector<int>>& graph, bool aspiracion,vector<int> &cicloActual);
 vector<int> tabuSearchC(int iters, int t, int porcentaje,vector<vector<int>> &graph,string heuristica);
-void recordarC(pair<Edge, Edge> swap, vector<pair<Edge, Edge>> &memo, int index);
+void recordar(vector<vector<int>> &memo, int index, vector<int> &nuevoCiclo);
 
 #endif
 #endif
 #endif
 #endif
+

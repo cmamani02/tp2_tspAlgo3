@@ -11,50 +11,46 @@
 
 #include "tabuSearchC.h"
 
-void recordarC(pair<Edge, Edge> swap, vector<pair<Edge, Edge>> &memo, int index){
-    int a,b; //e=(a->b) 
-    int c,d; //e=(c->d)
-    a = get<0>(swap).u;
-    b = get<0>(swap).v;
-    c = get<1>(swap).u;
-    d = get<1>(swap).v;
-    // aristas a insertar
-    Edge e1 = {a,c,0};
-    Edge e2 = {b,d,0};
-    pair<Edge,Edge> aristaSwap = make_pair(e1,e2);
-    memo[index] = aristaSwap;
+void recordar(vector<vector<int>> &memo, int index, vector<int> &nuevoCiclo){
+    vector<int> tmp = nuevoCiclo;
+    memo[index].swap(tmp);
 }
 
+bool mismoCiclo(vector<int> &ciclo1, vector<int> &ciclo2){
+    if(ciclo1.size() != ciclo2.size()) return false;
+    for (int  i = 0; i < ciclo1.size(); i++){
+        if (ciclo1[i] != ciclo2[i]) return false;
+    }
+    return true;
+}
+
+bool esTabu(vector<int> &mejorCiclo, vector<vector<int>> &memo){
+    for (int i = 0; i < memo.size(); i++){
+        if (mismoCiclo(memo[i],mejorCiclo)) return true;
+    }
+    return false;
+}
 
 // antes chequear que vecinos no sea vacio
-pair<Edge,Edge> obtenerMejorC(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, vector<pair<Edge, Edge>>& mem, vector<vector<int>>& graph, bool aspiracion){
-    Edge e1 = {-1,-1,-1};
-    Edge e2 = {-1,-1,-1};
-    pair<Edge,Edge> sol = make_pair(e1,e2);
-    int a,b; //e=(a->b) 
-    int c,d; //e=(c->d)
-    a = get<0>(sol).u;
-    b = get<0>(sol).v;
-    c = get<1>(sol).u;
-    d = get<1>(sol).v;
+vector<int> obtenerMejorC(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, vector<vector<int>>& mem, vector<vector<int>>& graph, bool aspiracion,vector<int> &cicloActual){
+    vector<int> mejorCiclo = cicloActual;
     int costoMinimo = costoCiclo;// - graph[a][b]- graph[c][d] + graph[a][c] + graph[b][d]; 
     for (auto edges : vecinos){
+        int a,b; //e=(a->b) 
+        int c,d; //e=(c->d)
         a = get<0>(edges).u;
         b = get<0>(edges).v;
         c = get<1>(edges).u;
         d = get<1>(edges).v;
-        int costo = costoCiclo - graph[a][b]- graph[c][d] + graph[a][c] + graph[b][d];
-
-        vector<pair<Edge, Edge>>::iterator it;
-        it = find(mem.begin(),mem.end(),edges);
-        bool esTabu = it != mem.end(); //true si edges esta en mem
+        int costoActual = costoCiclo - graph[a][b]- graph[c][d] + graph[a][c] + graph[b][d];
+        vector<int> mejorCicloActual = reconstruirCiclo(cicloActual,edges);    
         // contemplar funcion de aspiracion
-        if(!esTabu && costo < costoMinimo){
-            costoMinimo = costo;
-            sol = edges;
+        if(!esTabu(mejorCicloActual,mem) && costoActual < costoMinimo){
+            costoMinimo = costoActual;
+            mejorCiclo = mejorCicloActual;
         }
     }
-    return sol;
+    return mejorCiclo;
 }
 
 vector<int> tabuSearchC(int iters, int t, int porcentaje, vector<vector<int>> &graph, string heuristica){
@@ -66,36 +62,29 @@ vector<int> tabuSearchC(int iters, int t, int porcentaje, vector<vector<int>> &g
     }else{ 
         ciclo = h_insertion(graph);
     }
-    
     int costoCiclo = costo(ciclo,graph);
-    vector<int> mejor = ciclo;
+    vector<int> mejorCiclo = ciclo;
     int costoMejor = costoCiclo;
     bool aspiracion = false;
     int indexMemo = 0;
-    Edge e1 = {-1,-1,-1};
-    Edge e2 = {-1,-1,-1};
-    pair<Edge,Edge> inicial = make_pair(e1,e2);
-    vector<pair<Edge, Edge>> memo(t,inicial);  
-    
+    vector<vector<int>> memo(t);
+
     for(int i = 0; i<iters; i++){
         vector<pair<Edge, Edge>> vecinos = obtenerSubvecindad(ciclo, porcentaje, graph);
         if(vecinos.empty()) break;
         // busco aristas a quitar
-        pair<Edge, Edge> mejoresAristas = obtenerMejor(costoCiclo, vecinos, memo, graph, aspiracion); //for....vecinos...
-        if(get<0>(mejoresAristas).u == -1) continue;
-        //verificar si obtuve solucion si los pares de aristas son invalidas
-        ciclo = reconstruirCiclo(ciclo, mejoresAristas);
-        
-        // CAMBIAR: se tiene que guardar la operacion inversa
-        recordar(mejoresAristas, memo, indexMemo); // guarda el movimiento inverso
+        vector<int> mejorCicloVec = obtenerMejorC(costoCiclo, vecinos, memo, graph, aspiracion,mejorCiclo); //for....vecinos...
+        if(mejorCicloVec.empty()) continue;
+        //recordar
+        recordar(memo,indexMemo,mejorCicloVec);
         indexMemo++;
         indexMemo %= t;
-        costoCiclo = costo(ciclo,graph); 
+        costoCiclo = costo(mejorCicloVec,graph); 
         if(costoCiclo < costoMejor){
-            mejor = ciclo;
+            mejorCiclo = mejorCicloVec;
             costoMejor = costoCiclo; 
         }
     }
-    return mejor;
+    return mejorCiclo;
 }
 

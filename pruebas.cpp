@@ -141,20 +141,40 @@ void printT(vector<vector<int>> v){
 
 
 int main() {
-    cin >> n >> m;
-    graph.assign(n+1, vector<int>(n+1, INFTY));
-    vector<Edge> edges;
-    int i, j, c;
-    forn(k, m){
-        cin >> i >> j >> c;
-        graph[i][j] = c;
-        graph[j][i] = c;
-        edges.push_back({i,j,c});
-        // edges.push_back({j,i,c});
-    }
-    agm_Kruskal(edges,n);   
-    // printT(agm);
-    cout<<agm.size()<< " " << agm[1].size() << "\n";
+    // cin >> n >> m;
+    // graph.assign(n+1, vector<int>(n+1, INFTY));
+    // vector<Edge> edges;
+    // int i, j, c;
+    // forn(k, m){
+    //     cin >> i >> j >> c;
+    //     graph[i][j] = c;
+    //     graph[j][i] = c;
+    //     edges.push_back({i,j,c});
+    //     // edges.push_back({j,i,c});
+    // }
+    // agm_Kruskal(edges,n);   
+    // // printT(agm);
+    // cout<<agm.size()<< " " << agm[1].size() << "\n"
+    int t =3;
+    int indice = 0;
+    vector<vector<int>> memo(t);
+    // int* pointer = memo[indice];
+    vector<int> dato1 = {1,2,3};
+    vector<int> dato2 = {11,21,31};
+    vector<int> dato3 = {21,22,32};
+    vector<int> dato4 = {212,222,232};
+    // memo.at(indice) = dato1; 
+    // memo.at(indice) = dato2; 
+    // memo.at(indice) = dato3; 
+    // printT(memo);
+    memo[indice].swap(dato1);
+    indice++;
+    memo[indice].swap(dato2);
+    indice++;
+    memo[indice].swap(dato3);
+    printT(memo);
+
+
 	return 0;
 
 }
