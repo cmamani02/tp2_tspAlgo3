@@ -28,6 +28,13 @@ int main(int argc, char** argv) {
         return 0;
     }
     string algoritmo = argv[1];
+    int iteraciones = 10;
+    int longitudMemo = 20;
+    int porcentajeVecindad = 30;
+    if(argc == 4){
+        longitudMemo = stoi(argv[2]);
+        porcentajeVecindad = stoi(argv[3]);
+    }
     cin >> n >> m;
     int i, j, c;
     graph.assign(n, vector<int>(n, INFTY));
@@ -61,66 +68,49 @@ int main(int argc, char** argv) {
     }else if (algoritmo == "TSE-AGM")
     {
         heuristica = "AGM";
-        int iteraciones = 10;
-        int longitudMemo = 20;
-        int porcentajeVecindad = 30;
         ciclo = tabuSearchE(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
         
     }else if (algoritmo == "TSE-VMC")
     {
         heuristica = "VMC";
-        int iteraciones = 10;
-        int longitudMemo = 20;
-        int porcentajeVecindad = 30;
         ciclo = tabuSearchE(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
 
     }else if (algoritmo == "TSE-HI")
     {
         heuristica = "HI";
-        int iteraciones = 10;
-        int longitudMemo = 20;
-        int porcentajeVecindad = 30;
         ciclo = tabuSearchE(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
 
     }else if (algoritmo == "TSC-AGM")
     {
         heuristica = "AGM";
-        int iteraciones = 10;
-        int longitudMemo = 20;
-        int porcentajeVecindad = 30;
         ciclo = tabuSearchC(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
         
     }else if (algoritmo == "TSC-VMC")
     {
         heuristica = "VMC";
-        int iteraciones = 10;
-        int longitudMemo = 20;
-        int porcentajeVecindad = 30;
         ciclo = tabuSearchC(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
 
     }else if (algoritmo == "TSC-HI")
     {
         heuristica = "HI";
-        int iteraciones = 10;
-        int longitudMemo = 20;
-        int porcentajeVecindad = 30;
         ciclo = tabuSearchC(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
 
     }
     
     auto end = chrono::steady_clock::now();
     double total_time = chrono::duration<double, milli>(end - start).count();
-    
+    int costoSolucion = costo(ciclo,graph);
     // Imprimimos el tiempo de ejecución por stderr.
     clog << total_time << endl;
-    cout << costoTotal << endl<<flush;
+    //cout << costoTotal << endl<<flush;
+    cout << costoSolucion << endl<<flush;
     // cout << ciclo.size()<< endl;// <<" "<< costoTotal <<endl;
     // for (int i = 0; i < ciclo.size(); i++)
     // {
     //     cout << ciclo[i] <<" ";
     // }
     // cout << endl;
-    printD(ciclo);
+    //printD(ciclo);
 	return 0;
 
 }

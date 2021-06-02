@@ -15,7 +15,6 @@ int costo(vector<int>& ciclo, vector<vector<int>> &graph){
     for (int i = 1; i < ciclo.size(); i++){
         costo += graph[ciclo[i-1]][ciclo[i]];
     }
-    costo += graph[ciclo[ciclo.size()-1]][ciclo[0]];
     return costo;
 }
 // OJO: inicializar los vectores con longitud n
