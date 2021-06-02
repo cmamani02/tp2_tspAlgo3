@@ -95,7 +95,9 @@ vector<int> heur_AGM(vector<vector<int>> &graph){
     agm_Kruskal(edges,n);
     visited = vector<bool>(n, false); //inicializacion
     dfs(agm, 0);
-    return crearCiclo(recorrido_dfs, n);
+    vector<int> ciclo = crearCiclo(recorrido_dfs, n);
+    costoTotal = costo(ciclo,graph);
+    return ciclo;
 }
 
 // funciones para imprimir

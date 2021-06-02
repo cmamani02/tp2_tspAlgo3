@@ -1,9 +1,3 @@
-
-#include <bits/stdc++.h>
-#include <iostream>
-#include <utility>
-using namespace std; 
-
 #ifndef __TABUSEARCHE_H__
 #define __TABUSEARCHE_H__
 
@@ -13,6 +7,15 @@ using namespace std;
 #ifndef __VECMASCERHEUR_H__
 #define __VECMASCERHEUR_H__
 
+#ifndef __HEURINSERCION_H__
+#define __HEURINSERCION_H__
+
+#include <bits/stdc++.h>
+#include <iostream>
+#include <utility>
+#include "tabuSearchE.h"
+#include "tabuSearchC.h"
+using namespace std; 
 
 #define forsn(i,s,n) for(int i=int(s);i<int(n);i++)
 #define forn(i,n) forsn(i,0,n)
@@ -21,6 +24,7 @@ const int INFTY = INT_MAX;
 // implementacion vista en clase
 
 int n, m;
+int costoTotal;
 struct Edge
 {
     int u, v, weight;
@@ -50,7 +54,8 @@ vector<int> crearCiclo(vector<int>& rec_dfs, int n);
 vector<int> heur_AGM(vector<vector<int>> &graph);
 void printD(vector<int>& v);
 void printT(vector<vector<int>>& v);
-
+int costo(vector<int>& ciclo, vector<vector<int>> &graph);
+#endif
 #endif
 #endif
 #endif

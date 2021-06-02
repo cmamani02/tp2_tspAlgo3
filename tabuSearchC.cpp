@@ -85,6 +85,7 @@ vector<int> tabuSearchC(int iters, int t, int porcentaje, vector<vector<int>> &g
             costoMejor = costoCiclo; 
         }
     }
+    costoTotal = costoMejor;
     return mejorCiclo;
 }
 

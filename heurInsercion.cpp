@@ -15,7 +15,6 @@ vector<int> ciclo_h;                /** vector que me da el recorrido del ciclo 
 vector<int> ciclo;                  /** vector de vértices que están en el ciclo hamiltoniano**/
 vector<bool> usado;
 int INFINIT = INT_MAX;
-int costoTotal;
 
 vector<int> h_insertion(vector<vector<int>> &graph){
     
