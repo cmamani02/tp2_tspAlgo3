@@ -97,13 +97,13 @@ int main(int argc, char** argv) {
     // Imprimimos el tiempo de ejecución por stderr.
     clog << total_time << endl;
     cout << costoTotal << endl<<flush;
-    cout << ciclo.size()<< endl;// <<" "<< costoTotal <<endl;
+    // cout << ciclo.size()<< endl;// <<" "<< costoTotal <<endl;
     // for (int i = 0; i < ciclo.size(); i++)
     // {
     //     cout << ciclo[i] <<" ";
     // }
     // cout << endl;
-    printD(ciclo);
+    // printD(ciclo);
 	return 0;
 
 }
