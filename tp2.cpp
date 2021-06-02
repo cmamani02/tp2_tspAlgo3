@@ -29,19 +29,19 @@ int main(int argc, char** argv) {
     }
     string algoritmo = argv[1];
     cin >> n >> m;
-    graph.assign(n, vector<int>(n, INFTY));
     int i, j, c;
+    graph.assign(n, vector<int>(n, INFTY));
     forn(k, m){
         // vector<int> v(n+1, INFTY);
         cin >> i >> j >> c;
         i--;
         j--;
+        cout<< "cargue datos :"<<k<< endl;
         graph[i][j] = c;
         graph[j][i] = c;
         edges.push_back({i,j,c});
     }
 
-    cout<< "cargue datos"<< endl;
     
     vector<int> ciclo;
     string heuristica;
