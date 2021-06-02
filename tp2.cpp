@@ -44,12 +44,13 @@ int main(int argc, char** argv) {
 
     
     vector<int> ciclo;
+    string heuristica;
     // costoTotal = 1;
     auto start = chrono::steady_clock::now();
     //computamos....
     if (algoritmo == "AGMH")
     {
-        //ciclo = heur_AGM(graph);
+        ciclo = heur_AGM(graph);
 
     }else if (algoritmo == "VMC")
     {
@@ -57,28 +58,36 @@ int main(int argc, char** argv) {
 
     }else if (algoritmo == "HI")
     {
-
+        ciclo = h_insertion(graph);
     }else if (algoritmo == "TSE-AGMH")
     {
-        string heuristica = "AGM";
+        heuristica = "AGM";
         ciclo = tabuSearchE(10,20,30,graph,heuristica);
         
     }else if (algoritmo == "TSE-VCM")
     {
-        string heuristica = "VCM";
+        heuristica = "VCM";
+        ciclo = tabuSearchE(10,20,30,graph,heuristica);
 
     }else if (algoritmo == "TSE-HI")
     {
-        string heuristica = "HI";
+        heuristica = "HI";
+        ciclo = tabuSearchE(10,20,30,graph,heuristica);
 
     }else if (algoritmo == "TSC-AGMH")
     {
+        heuristica = "AGM";
+        ciclo = tabuSearchC(10,20,30,graph,heuristica);
         
     }else if (algoritmo == "TSC-VCM")
     {
+        heuristica = "VCM";
+        ciclo = tabuSearchC(10,20,30,graph,heuristica);
 
     }else if (algoritmo == "TSC-HI")
     {
+        heuristica = "HI";
+        ciclo = tabuSearchC(10,20,30,graph,heuristica);
 
     }
     
