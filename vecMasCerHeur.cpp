@@ -8,7 +8,6 @@
 #include "vecMasCerHeur.h"
 vector<int> vecinoMasCercano(vector<vector<int>> &g){
     costoTotal = 0;
-    cout << "Varible n desde VMC : " << n <<endl;
     vector<bool> visitados(n, false);
     // nodo inicial
     int v0 = 0;

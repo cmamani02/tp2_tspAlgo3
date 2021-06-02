@@ -9,7 +9,15 @@
 
 
 #include "agmHeur.h"
-
+// ciclo = v u .. w v
+int costo(vector<int>& ciclo, vector<vector<int>> &graph){
+    int costo = 0;
+    for (int i = 1; i < ciclo.size(); i++){
+        costo += graph[ciclo[i-1]][ciclo[i]];
+    }
+    costo += graph[ciclo[ciclo.size()-1]][ciclo[0]];
+    return costo;
+}
 // OJO: inicializar los vectores con longitud n
 void init(int n){
     forn(i, n){

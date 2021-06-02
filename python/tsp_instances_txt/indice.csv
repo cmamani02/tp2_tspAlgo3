@@ -1,0 +1,11 @@
+dataset,instancia,n,m,archivo
+a280,a280-EU21,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU22,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU23,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU24,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU25,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU26,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU27,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU28,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU29,280,39340,tsp_instances_txt/a280.txt
+a280,a280-EU210,280,39340,tsp_instances_txt/a280.txt

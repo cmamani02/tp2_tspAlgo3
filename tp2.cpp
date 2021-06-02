@@ -28,7 +28,6 @@ int main(int argc, char** argv) {
         return 0;
     }
     string algoritmo = argv[1];
-
     cin >> n >> m;
     graph.assign(n, vector<int>(n, INFTY));
     int i, j, c;
@@ -42,6 +41,7 @@ int main(int argc, char** argv) {
         edges.push_back({i,j,c});
     }
 
+    cout<< "cargue datos"<< endl;
     
     vector<int> ciclo;
     string heuristica;
@@ -62,32 +62,50 @@ int main(int argc, char** argv) {
     }else if (algoritmo == "TSE-AGM")
     {
         heuristica = "AGM";
-        ciclo = tabuSearchE(10,20,30,graph,heuristica);
+        int iteraciones = 10;
+        int longitudMemo = 20;
+        int porcentajeVecindad = 30;
+        ciclo = tabuSearchE(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
         
     }else if (algoritmo == "TSE-VMC")
     {
         heuristica = "VMC";
-        ciclo = tabuSearchE(10,20,30,graph,heuristica);
+        int iteraciones = 10;
+        int longitudMemo = 20;
+        int porcentajeVecindad = 30;
+        ciclo = tabuSearchE(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
 
     }else if (algoritmo == "TSE-HI")
     {
         heuristica = "HI";
-        ciclo = tabuSearchE(10,20,30,graph,heuristica);
+        int iteraciones = 10;
+        int longitudMemo = 20;
+        int porcentajeVecindad = 30;
+        ciclo = tabuSearchE(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
 
     }else if (algoritmo == "TSC-AGM")
     {
         heuristica = "AGM";
-        ciclo = tabuSearchC(10,20,30,graph,heuristica);
+        int iteraciones = 10;
+        int longitudMemo = 20;
+        int porcentajeVecindad = 30;
+        ciclo = tabuSearchC(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
         
     }else if (algoritmo == "TSC-VMC")
     {
         heuristica = "VMC";
-        ciclo = tabuSearchC(10,20,30,graph,heuristica);
+        int iteraciones = 10;
+        int longitudMemo = 20;
+        int porcentajeVecindad = 30;
+        ciclo = tabuSearchC(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
 
     }else if (algoritmo == "TSC-HI")
     {
         heuristica = "HI";
-        ciclo = tabuSearchC(10,20,30,graph,heuristica);
+        int iteraciones = 10;
+        int longitudMemo = 20;
+        int porcentajeVecindad = 30;
+        ciclo = tabuSearchC(iteraciones,longitudMemo,porcentajeVecindad,graph,heuristica);
 
     }
     
@@ -103,7 +121,7 @@ int main(int argc, char** argv) {
     //     cout << ciclo[i] <<" ";
     // }
     // cout << endl;
-    // printD(ciclo);
+    printD(ciclo);
 	return 0;
 
 }

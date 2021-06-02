@@ -75,7 +75,7 @@ vector<int> h_insertion(vector<vector<int>> &graph){
         v = ciclo_h[v];
         if(v == 0) break;
     }
-
+    costoTotal = costo(res,graph);
     return res;
 }
 
