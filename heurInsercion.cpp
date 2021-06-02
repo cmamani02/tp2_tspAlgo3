@@ -10,29 +10,24 @@
 
 
 #include "heurInsercion.h"
-//vector<int> no_visitados;
-//for(int i = 4; i <= n; i++) no_visitados.push_back(i);
 
 vector<int> ciclo_h;                /** vector que me da el recorrido del ciclo hamiltoniano**/
 vector<int> ciclo;                  /** vector de vértices que están en el ciclo hamiltoniano**/
 vector<bool> usado;
 int INFINIT = INT_MAX;
-int costoCiclo;
+int costoTotal;
+
 vector<int> h_insertion(vector<vector<int>> &graph){
-
+    
     /** inicializo las estracturas de datos usadas **/
-    ciclo_h.assign(n+1, 0);
-    ciclo_h[1] = 2, ciclo_h[2] = 3, ciclo_h[3]= 1;
-    costoCiclo = graph[1][2] + graph[2][3] + graph[3][1];
+    ciclo_h.assign(n, 0);
+    ciclo_h[0] = 1, ciclo_h[1] = 2, ciclo_h[2]= 0;
+    costoTotal = graph[0][1] + graph[1][2] + graph[2][0];
 
-    //ciclo.assign(n+1, 0);
-    //for(int i = 1;i <= 3; i++) ciclo.push_back(i);
+    for(int i = 0; i < 3; i++) ciclo.push_back(i);
 
-    //ciclo.assign(n, 0);
-    for(int i = 1; i <= 3; i++) ciclo.push_back(i);
-
-    usado.assign(n+1, false);
-    for(int i = 1; i <= 3; i++) usado[i] = true;
+    usado.assign(n, false);
+    for(int i = 0; i < 3; i++) usado[i] = true;
 
     int arista = INFINIT;
     int adyacente;
@@ -42,7 +37,7 @@ vector<int> h_insertion(vector<vector<int>> &graph){
     while(ciclo.size() != n){
         /** ELEGIR: busco el vertice mas cercano al ciclo **/
         for(int v: ciclo){
-            for(int i = 1; i <= n; i++){
+            for(int i = 0; i < n; i++){
                 if(graph[v][i] < arista && usado[i] == false){
                     arista = graph[v][i];
                     new_vertex = i;
@@ -55,7 +50,7 @@ vector<int> h_insertion(vector<vector<int>> &graph){
         /** INSERTAR: inserto el nuevo vertice al ciclo **/
         for(int v: ciclo){
             adyacente = ciclo_h[v];                             /** vertice adyacente a v en el ciclo **/
-            dif_aristas = costoCiclo + graph[v][new_vertex] + graph[new_vertex][adyacente] - graph[v][adyacente];
+            dif_aristas = costoTotal + graph[v][new_vertex] + graph[new_vertex][adyacente] - graph[v][adyacente];
             if(dif_aristas < min_costo_aux){
                 //min = dif_aristas;
                 min_costo_aux = dif_aristas;
@@ -69,17 +64,17 @@ vector<int> h_insertion(vector<vector<int>> &graph){
         ciclo_h[new_vertex] = aux_vertex;
         usado[new_vertex] = true;
         ciclo.push_back(new_vertex);
-        costoCiclo = min_costo_aux;
+        costoTotal = min_costo_aux;
 
     }
 
     /** Armo la solución **/
     vector<int> res;
-    int v = 1;
+    int v = 0;
     while(res.size() != n){
         res.push_back(v);
         v = ciclo_h[v];
-        if(v == 1) break;
+        if(v == 0) break;
     }
 
     return res;
