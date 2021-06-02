@@ -4,6 +4,8 @@
 #ifndef __TABUSEARCHC_H__
 #define __TABUSEARCHC_H__
 
+
+
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>

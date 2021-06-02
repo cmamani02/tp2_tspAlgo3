@@ -7,6 +7,9 @@
 #ifndef __TABUSEARCHC_H__
 #define __TABUSEARCHC_H__
 
+#ifndef __HEURINSERCION_H__
+#define __HEURINSERCION_H__
+
 #include <climits>
 #include <iostream>
 #include <vector>
@@ -25,8 +28,10 @@ int n, m;
 const int INFTY = INT_MAX;
 vector<vector<int>> graph;
 
+
 vector<int> vecinoMasCercano(vector<vector<int>> &graph);
 
+#endif
 #endif
 #endif
 #endif
