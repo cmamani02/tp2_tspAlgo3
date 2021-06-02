@@ -31,9 +31,10 @@ int main(int argc, char** argv) {
     int iteraciones = 10;
     int longitudMemo = 20;
     int porcentajeVecindad = 30;
-    if(argc == 4){
+    if(argc == 5){
         longitudMemo = stoi(argv[2]);
         porcentajeVecindad = stoi(argv[3]);
+        iteraciones = stoi(argv[4]);
     }
     cin >> n >> m;
     int i, j, c;
