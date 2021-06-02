@@ -126,7 +126,7 @@ vector<int> tabuSearchE(int iters, int t, int porcentaje, vector<vector<int>> &g
     vector<int> ciclo;
     if (heuristica == "AGM"){
         ciclo = heur_AGM(graph);
-    }else if (heuristica == "VCM"){ 
+    }else if (heuristica == "VMC"){ 
         ciclo = vecinoMasCercano(graph);
     }else{ 
         ciclo = h_insertion(graph);

@@ -59,14 +59,14 @@ int main(int argc, char** argv) {
     }else if (algoritmo == "HI")
     {
         ciclo = h_insertion(graph);
-    }else if (algoritmo == "TSE-AGMH")
+    }else if (algoritmo == "TSE-AGM")
     {
         heuristica = "AGM";
         ciclo = tabuSearchE(10,20,30,graph,heuristica);
         
-    }else if (algoritmo == "TSE-VCM")
+    }else if (algoritmo == "TSE-VMC")
     {
-        heuristica = "VCM";
+        heuristica = "VMC";
         ciclo = tabuSearchE(10,20,30,graph,heuristica);
 
     }else if (algoritmo == "TSE-HI")
@@ -74,14 +74,14 @@ int main(int argc, char** argv) {
         heuristica = "HI";
         ciclo = tabuSearchE(10,20,30,graph,heuristica);
 
-    }else if (algoritmo == "TSC-AGMH")
+    }else if (algoritmo == "TSC-AGM")
     {
         heuristica = "AGM";
         ciclo = tabuSearchC(10,20,30,graph,heuristica);
         
-    }else if (algoritmo == "TSC-VCM")
+    }else if (algoritmo == "TSC-VMC")
     {
-        heuristica = "VCM";
+        heuristica = "VMC";
         ciclo = tabuSearchC(10,20,30,graph,heuristica);
 
     }else if (algoritmo == "TSC-HI")
