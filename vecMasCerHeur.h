@@ -27,8 +27,6 @@ using namespace std;
 int n, m; 
 const int INFTY = INT_MAX;
 vector<vector<int>> graph;
-
-
 vector<int> vecinoMasCercano(vector<vector<int>> &graph);
 
 #endif

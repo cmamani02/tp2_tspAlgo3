@@ -104,6 +104,7 @@ vector<int> heur_AGM(vector<vector<int>> &graph){
     visited = vector<bool>(n, false); //inicializacion
     dfs(agm, 0);
     vector<int> ciclo = crearCiclo(recorrido_dfs, n);
+    costoTotal = 0;
     costoTotal = costo(ciclo,graph);
     return ciclo;
 }

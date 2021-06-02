@@ -36,7 +36,6 @@ int main(int argc, char** argv) {
         cin >> i >> j >> c;
         i--;
         j--;
-        cout<< "cargue datos :"<<k<< endl;
         graph[i][j] = c;
         graph[j][i] = c;
         edges.push_back({i,j,c});
@@ -45,7 +44,7 @@ int main(int argc, char** argv) {
     
     vector<int> ciclo;
     string heuristica;
-    // costoTotal = 1;
+    costoTotal = 0;
     auto start = chrono::steady_clock::now();
     //computamos....
     if (algoritmo == "AGMH")
