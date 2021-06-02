@@ -64,7 +64,7 @@ vector<int> tabuSearchC(int iters, int t, int porcentaje, vector<vector<int>> &g
     }else if (heuristica == "VCM"){ 
         ciclo = vecinoMasCercano(graph);
     }else{ 
-        ciclo = heur_AGM(graph);
+        ciclo = h_insertion(graph);
     }
     
     int costoCiclo = costo(ciclo,graph);

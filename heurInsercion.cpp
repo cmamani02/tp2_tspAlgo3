@@ -1,27 +1,29 @@
-#include <iostream>
-#include <vector>
-#include <bits/stdc++.h>
+/**
+ * @brief 
+ * Heuristica Constructiva de Insercion
+ * Las heurı́sticas de inserción comienzan con un ciclo cualquiera y en cada 
+ * iteración incorporan un vértice al ciclo hasta llegar a incorporar a 
+ * todos los vértices. En general la selección del próximo vértice a incorporar y donde
+ * insertarlo son decisiones golosas.
+ */
 
-using namespace std;
 
-int n, m;
-int INFINIT = INT_MAX;
-vector<vector<int>> graph;          /** matriz de adyacencia **/
+
+#include "heurInsercion.h"
+//vector<int> no_visitados;
+//for(int i = 4; i <= n; i++) no_visitados.push_back(i);
 
 vector<int> ciclo_h;                /** vector que me da el recorrido del ciclo hamiltoniano**/
 vector<int> ciclo;                  /** vector de vértices que están en el ciclo hamiltoniano**/
 vector<bool> usado;
-int costo;
-
-//vector<int> no_visitados;
-//for(int i = 4; i <= n; i++) no_visitados.push_back(i);
-
+int INFINIT = INT_MAX;
+int costoCiclo;
 vector<int> h_insertion(vector<vector<int>> &graph){
 
     /** inicializo las estracturas de datos usadas **/
     ciclo_h.assign(n+1, 0);
     ciclo_h[1] = 2, ciclo_h[2] = 3, ciclo_h[3]= 1;
-    costo = graph[1][2] + graph[2][3] + graph[3][1];
+    costoCiclo = graph[1][2] + graph[2][3] + graph[3][1];
 
     //ciclo.assign(n+1, 0);
     //for(int i = 1;i <= 3; i++) ciclo.push_back(i);
@@ -53,7 +55,7 @@ vector<int> h_insertion(vector<vector<int>> &graph){
         /** INSERTAR: inserto el nuevo vertice al ciclo **/
         for(int v: ciclo){
             adyacente = ciclo_h[v];                             /** vertice adyacente a v en el ciclo **/
-            dif_aristas = costo + graph[v][new_vertex] + graph[new_vertex][adyacente] - graph[v][adyacente];
+            dif_aristas = costoCiclo + graph[v][new_vertex] + graph[new_vertex][adyacente] - graph[v][adyacente];
             if(dif_aristas < min_costo_aux){
                 //min = dif_aristas;
                 min_costo_aux = dif_aristas;
@@ -67,7 +69,7 @@ vector<int> h_insertion(vector<vector<int>> &graph){
         ciclo_h[new_vertex] = aux_vertex;
         usado[new_vertex] = true;
         ciclo.push_back(new_vertex);
-        costo = min_costo_aux;
+        costoCiclo = min_costo_aux;
 
     }
 
@@ -83,26 +85,26 @@ vector<int> h_insertion(vector<vector<int>> &graph){
     return res;
 }
 
-int main() {
+// int main() {
 
-    cin >> n >> m;
-    graph.assign(n+1, vector<int>(n+1, INFINIT));       // incializo la matriz de adyacencia
-    int v1, v2, arista;
+//     cin >> n >> m;
+//     graph.assign(n+1, vector<int>(n+1, INFINIT));       // incializo la matriz de adyacencia
+//     int v1, v2, arista;
 
-    for(int i = 0; i < m; i++){
-        cin >> v1 >> v2 >> arista;
-        graph[v1][v2] = arista;
-        graph[v2][v1] = arista;
-    }
+//     for(int i = 0; i < m; i++){
+//         cin >> v1 >> v2 >> arista;
+//         graph[v1][v2] = arista;
+//         graph[v2][v1] = arista;
+//     }
 
-    vector<int> hamiltoniano = h_insertion(graph);
+//     vector<int> hamiltoniano = h_insertion(graph);
 
-    /** imprimo por pantalla los resultados **/
-    cout << hamiltoniano.size() << " " << costo << endl;
-    for(int i = 0; i < hamiltoniano.size(); i++){
-        cout << hamiltoniano[i] << " ";
-    }
-    cout << endl;
+//     /** imprimo por pantalla los resultados **/
+//     cout << hamiltoniano.size() << " " << costo << endl;
+//     for(int i = 0; i < hamiltoniano.size(); i++){
+//         cout << hamiltoniano[i] << " ";
+//     }
+//     cout << endl;
 
-    return 0;
-}
+//     return 0;
+// }

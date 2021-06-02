@@ -18,15 +18,14 @@
 #include <map>
 using namespace std;
 
-
-
-vector<int> vecinoMasCercano(vector<vector<int>> &graph);
-
-const int INFTY = INT_MAX;
 #define forsn(i,s,n) for(int i=int(s);i<int(n);i++)
 #define forn(i,n) forsn(i,0,n)
+
 int n, m; 
+const int INFTY = INT_MAX;
 vector<vector<int>> graph;
+
+vector<int> vecinoMasCercano(vector<vector<int>> &graph);
 
 #endif
 #endif

@@ -4,7 +4,8 @@
 ===================================================================================================
 */
 #include "agmHeur.cpp" 
-#include "vecMasCerHeur.cpp" 
+#include "heurInsercion.cpp" 
+#include "vecMasCerHeur.cpp"
 #include "tabuSearchE.cpp" 
 #include "tabuSearchC.cpp" 
 
