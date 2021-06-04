@@ -34,6 +34,7 @@ vector<int> h_insertion(vector<vector<int>> &graph){
     int new_vertex, vertice, aux_vertex;
 
     while(ciclo.size() != n){
+        arista = INFINIT;
         /** ELEGIR: busco el vertice mas cercano al ciclo **/
         for(int v: ciclo){
             for(int i = 0; i < n; i++){
