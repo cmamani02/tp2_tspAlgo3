@@ -40,6 +40,7 @@ vector<pair<Edge, Edge>> obtenerSubvecindad(vector<int>& ciclo, int porcentaje, 
     random_shuffle(vecindad.begin(), vecindad.end());
     int subvecindad = (vecindad.size()*porcentaje)/100;
     vecindad.resize(subvecindad);
+    //cout<<"vecindad: "<<vecindad.size()<<endl;
     return vecindad;
 }
 
@@ -50,11 +51,16 @@ pair<Edge,Edge> obtenerMejor(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, 
     pair<Edge,Edge> sol = make_pair(e1,e2);
     int a,b; //e=(a->b) 
     int c,d; //e=(c->d)
-    a = get<0>(sol).u;
-    b = get<0>(sol).v;
-    c = get<1>(sol).u;
-    d = get<1>(sol).v;
-    int costoMinimo = costoCiclo;
+    //a = get<0>(sol).u;
+    //b = get<0>(sol).v;
+    //c = get<1>(sol).u;
+    //d = get<1>(sol).v;
+    a = get<0>(vecinos[0]).u;
+    b = get<0>(vecinos[0]).v;
+    c = get<1>(vecinos[0]).u;
+    d = get<1>(vecinos[0]).v;
+    //int costoMinimo = costoCiclo;
+    int costoMinimo = costoCiclo - graph[a][b]- graph[c][d] + graph[a][c] + graph[b][d];//minimo vecino
     for (auto edges : vecinos){
         a = get<0>(edges).u;
         b = get<0>(edges).v;
@@ -66,7 +72,7 @@ pair<Edge,Edge> obtenerMejor(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, 
         it = find(mem.begin(),mem.end(),edges);
         bool esTabu = it != mem.end(); //true si edges esta en mem
         // contemplar funcion de aspiracion
-        if(!esTabu && costo < costoMinimo){
+        if(!esTabu && costo <= costoMinimo){//int((costo*99)/100) //int((costo*80)/100) 1000inserciones
             costoMinimo = costo;
             sol = edges;
         }
@@ -140,6 +146,7 @@ vector<int> tabuSearchE(int iters, int t, int porcentaje, vector<vector<int>> &g
         // busco aristas a quitar
         pair<Edge, Edge> mejoresAristas = obtenerMejor(costoCiclo, vecinos, memo, graph, aspiracion); //for....vecinos...
         if(get<0>(mejoresAristas).u == -1) continue;
+        //else inserciones++; 
         //verificar si obtuve solucion si los pares de aristas son invalidas
         ciclo = reconstruirCiclo(ciclo, mejoresAristas);
         
@@ -152,6 +159,7 @@ vector<int> tabuSearchE(int iters, int t, int porcentaje, vector<vector<int>> &g
             costoMejor = costoCiclo; 
         }
     }
+    //cout<<"total inserciones: "<<inserciones<<endl;
     costoTotal = costoMejor;
     return mejor;
 }

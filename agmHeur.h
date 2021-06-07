@@ -22,7 +22,7 @@ using namespace std;
 
 const int INFTY = INT_MAX;
 // implementacion vista en clase
-
+int inserciones = 0;
 int n, m;
 int costoTotal;
 struct Edge
