@@ -33,6 +33,7 @@ vector<int> vecinoMasCercano(vector<vector<int>> &g){
         v = w;
     }
     costoTotal += g[w][v0];
+    H.push_back(H[0]);
     return H;
 }
 
