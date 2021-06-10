@@ -110,12 +110,12 @@ vector<int> heur_AGM(vector<vector<int>> &graph){
 
 // funciones para imprimir
 void printD(vector<int>& v){
-    cout << "[";
+    //cout << "[";
     for(int i=0; i< v.size() -1;i++){
-        cout << v[i] << ",";
+        cout << v[i]+1 << " ";
     }
-    if(v.size() > 0){cout << v[v.size()-1];}
-    cout <<"]"<< endl;
+    //if(v.size() > 0){cout << v[v.size()-1];}
+    //cout <<"]"<< endl;
 }
 
 void printT(vector<vector<int>>& v){
