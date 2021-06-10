@@ -111,7 +111,7 @@ int main(int argc, char** argv) {
     //     cout << ciclo[i] <<" ";
     // }
     // cout << endl;
-    //printD(ciclo);
+    printD(ciclo);
 	return 0;
 
 }
