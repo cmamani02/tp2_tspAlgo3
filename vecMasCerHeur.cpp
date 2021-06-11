@@ -24,7 +24,10 @@ vector<int> vecinoMasCercano(vector<vector<int>> &g){
         for (int j = 0; j < n; j++)
         {
             if(!visitados[j] && j != v){
-                if (min > g[v][j] ){w = j;}
+                if (min > g[v][j] ){
+                    w = j;
+                    min = g[v][j];
+                }
             }
         }
         visitados[w] = true;
