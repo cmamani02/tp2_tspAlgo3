@@ -80,27 +80,3 @@ vector<int> h_insertion(vector<vector<int>> &graph){
     costoTotal = costo(res,graph);
     return res;
 }
-
-// int main() {
-
-//     cin >> n >> m;
-//     graph.assign(n+1, vector<int>(n+1, INFINIT));       // incializo la matriz de adyacencia
-//     int v1, v2, arista;
-
-//     for(int i = 0; i < m; i++){
-//         cin >> v1 >> v2 >> arista;
-//         graph[v1][v2] = arista;
-//         graph[v2][v1] = arista;
-//     }
-
-//     vector<int> hamiltoniano = h_insertion(graph);
-
-//     /** imprimo por pantalla los resultados **/
-//     cout << hamiltoniano.size() << " " << costo << endl;
-//     for(int i = 0; i < hamiltoniano.size(); i++){
-//         cout << hamiltoniano[i] << " ";
-//     }
-//     cout << endl;
-
-//     return 0;
-// }

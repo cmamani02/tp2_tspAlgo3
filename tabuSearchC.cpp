@@ -40,8 +40,7 @@ vector<int> obtenerMejorC(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, vec
     c = get<1>(vecinos[0]).u;
     d = get<1>(vecinos[0]).v;
     vector<int> mejorCiclo = reconstruirCiclo(cicloActual,vecinos[0]);
-    //vector<int> mejorCiclo = cicloActual;
-    //int costoMinimo = costoCiclo;// - graph[a][b]- graph[c][d] + graph[a][c] + graph[b][d]; 
+    
     int costoMinimo = costoCiclo - graph[a][b]- graph[c][d] + graph[a][c] + graph[b][d];//minimo vecino
     for (auto edges : vecinos){
         a = get<0>(edges).u;
@@ -50,7 +49,7 @@ vector<int> obtenerMejorC(int costoCiclo, vector<pair<Edge, Edge>>& vecinos, vec
         d = get<1>(edges).v;
         int costoActual = costoCiclo - graph[a][b]- graph[c][d] + graph[a][c] + graph[b][d];
         vector<int> mejorCicloActual = reconstruirCiclo(cicloActual,edges);    
-        // contemplar funcion de aspiracion
+        
         if(!esTabu(mejorCicloActual,mem) && costoActual <= costoMinimo){
             costoMinimo = costoActual;
             mejorCiclo = mejorCicloActual;
@@ -79,19 +78,16 @@ vector<int> tabuSearchC(int iters, int t, int porcentaje, vector<vector<int>> &g
         vector<pair<Edge, Edge>> vecinos = obtenerSubvecindad(ciclo, porcentaje, graph);
         if(vecinos.empty()) break;
         // busco aristas a quitar
-        //vector<int> mejorCicloVec = obtenerMejorC(costoCiclo, vecinos, memo, graph, aspiracion,mejorCiclo); //for....vecinos...
+        
         ciclo = obtenerMejorC(costoCiclo, vecinos, memo, graph, aspiracion,ciclo); //for....vecinos...
         if(ciclo.empty()) continue;
-        //if(mejorCicloVec.empty()) continue;
-        //recordar
-        //recordar(memo,indexMemo,mejorCicloVec);
+        
         recordar(memo,indexMemo,ciclo);
         indexMemo++;
         indexMemo %= t;
-        //costoCiclo = costo(mejorCicloVec,graph);
+        
         costoCiclo = costo(ciclo,graph);  
         if(costoCiclo < costoMejor){
-            //mejorCiclo = mejorCicloVec;
             mejorCiclo = ciclo;
             costoMejor = costoCiclo; 
         }

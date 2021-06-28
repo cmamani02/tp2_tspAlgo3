@@ -40,7 +40,6 @@ int main(int argc, char** argv) {
     int i, j, c;
     graph.assign(n, vector<int>(n, INFTY));
     forn(k, m){
-        // vector<int> v(n+1, INFTY);
         cin >> i >> j >> c;
         i--;
         j--;
@@ -100,20 +99,13 @@ int main(int argc, char** argv) {
     
     auto end = chrono::steady_clock::now();
     double total_time = chrono::duration<double, milli>(end - start).count();
-    int costoSolucion = costo(ciclo,graph);
+
     // Imprimimos el tiempo de ejecución por stderr.
-    clog << total_time << endl;
-    //cout << costoTotal << endl<<flush;
-    cout << costoSolucion << endl<<flush;
-    // cout << ciclo.size()<< endl;// <<" "<< costoTotal <<endl;
-    // for (int i = 0; i < ciclo.size(); i++)
-    // {
-    //     cout << ciclo[i] <<" ";
-    // }
-    // cout << endl;
+    //clog << total_time << endl;
+    int costoSolucion = costo(ciclo,graph);
+    cout << n << " " << costoSolucion << endl;
+
     printD(ciclo);
 	return 0;
 
 }
-
-// /cd "/" && g++ -std=c++11 tp2.cpp -o tp2 && "/"tp2cd "/" && g++ -std=c++11 tp2.cpp -o tp2 && "/"tp2

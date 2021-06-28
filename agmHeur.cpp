@@ -17,7 +17,7 @@ int costo(vector<int>& ciclo, vector<vector<int>> &graph){
     }
     return costo;
 }
-// OJO: inicializar los vectores con longitud n
+// inicializar los vectores con longitud n
 void init(int n){
     forn(i, n){
         altura[i] = 1; // altura es una cota superior de la altura
@@ -114,6 +114,7 @@ void printD(vector<int>& v){
     for(int i=0; i< v.size() -1;i++){
         cout << v[i]+1 << " ";
     }
+    cout << endl;
     //if(v.size() > 0){cout << v[v.size()-1];}
     //cout <<"]"<< endl;
 }
