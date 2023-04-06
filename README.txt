@@ -7,9 +7,9 @@ Para compilarlo se debe ejecutar el comando
 en la consola.
 
 Al ejecutarlo se le debe pasar un parámetro que indique cuál algoritmo se desea utilizar entre las siguientes opciones:
-	- VMC: Fuerza bruta
-	- HI: Backtracking con podas por factibilidad y optimalidad.
-	- AGMH: Backtracking solamente con poda por factibilidad.
+	- VMC: Heurística de vecino mas cercano.
+	- HI: Heurística de inserción
+	- AGMH: Heurística de arbol generador minimo.
 	- TSC-VMC: tabu search con memoria basada ultimas soluciones exploradas, usando VMC para solucion inicial.
 	- TSC-HI: tabu search con memoria basada ultimas soluciones exploradas, usando HI para solucion inicial.
 	- TSC-AGM: tabu search con memoria basada ultimas soluciones exploradas, usando AGMH para solucion inicial.
